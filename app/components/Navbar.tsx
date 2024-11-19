@@ -3,6 +3,8 @@ import React from 'react'
 import Logo from './Logo'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button'
 
 function Navbar() {
   return (
@@ -47,7 +49,18 @@ function NavbarItem({link, label}: {
 
     return(
         <div className='relative flex items-center'>
-            <Link href={link}>{label}</Link>
+            <Link href={link}className={cn(buttonVariants({
+                variant:'ghost'}),
+                'w-full justify-start text-lg text-muted-foreground hover:text-foreground', isActive && 'text-foreground'
+                )}
+            >
+                {label}
+            </Link>
+            {
+                isActive && (
+                    <div className='absolute -bottom-[21px] left-1/2 hidden h-[2px] w-[80%] -translate-x-1/2 rounded-xl bg-foreground md:block' />
+                )
+            }
         </div>
     )
 }
